@@ -10,7 +10,15 @@ Vue.component("feedback-form", {
 	},
 	template: "#feedback-form",
 	methods: {
+		resetState() {
+			this.score = 0;
+			this.isLoading = false;
+			this.isError = false;
+			this.isDone = false;
+			this.isClose = false;
+		},
 		async submitFeedback() {
+			this.resetState();
 			try {
 				this.isLoading = true;
 				await axios.post("http://localhost:8000/feedback/", {
