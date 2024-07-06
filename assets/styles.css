@@ -138,14 +138,17 @@ body {
 	transform: translateY(100%);
 } */
 
-.feedback-form-wrapper-enter-active,
-.feedback-form-wrapper-leave-active {
+.feedback-form-wrapper-enter-active {
 	transition: all 0.75s ease-out;
+}
+
+.feedback-form-wrapper-leave-active {
+	transition: all 0.75s ease-in;
 }
 
 .thankyou-enter-active,
 .thankyou-leave-active {
-	transition: all 250ms ease-out;
+	transition: all 500ms ease-out;
 }
 
 .feedback-form-wrapper-enter, .feedback-form-wrapper-leave-to
