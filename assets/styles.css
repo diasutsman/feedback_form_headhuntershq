@@ -16,7 +16,7 @@ body {
 }
 
 .feedback-form {
-	position: absolute;
+	position: fixed;
 
 	right: 32px;
 	bottom: 32px;
@@ -122,4 +122,44 @@ body {
 	100% {
 		transform: rotate(360deg);
 	}
+}
+
+/** Vue 2 Transitions */
+
+/* .feedback-form-enter-active {
+	transition: all 5s;
+}
+
+.feedback-form-leave-active {
+	transition: all 5s;
+}
+
+.feedback-form-enter, .feedback-form-leave-to{
+	transform: translateY(100%);
+} */
+
+.feedback-form-wrapper-enter-active,
+.feedback-form-wrapper-leave-active {
+	transition: all 0.75s ease-out;
+}
+
+.thankyou-enter-active,
+.thankyou-leave-active {
+	transition: all 250ms ease-out;
+}
+
+.feedback-form-wrapper-enter, .feedback-form-wrapper-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+	/* transform: translateY(100%); */
+	/* opacity: 0; */
+	bottom: -100%;
+}
+
+.thankyou-enter,
+.thankyou-leave-to {
+	opacity: 0;
+}
+.thankyou-leave,
+.thankyou-enter-to {
+	opacity: 1;
 }

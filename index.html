@@ -5,37 +5,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="assets/styles.css" />
 		<title>Feedback Form</title>
-		<script type="text/x-template" id="feedback-form">
-			<transition name="feedback-form">
-			             <div class="feedback-form">
-			                <div class="feedback-content">
-			                             <h2>How would you rate your satisfaction with our product?</h2>
-			                             <div class="stars">
-			                                 <div class="star" v-for="n in 5" :key="n" @click="score = n">
-			                                     <div class="star">
-			                                         <div class="logo" :class="{'selected': n <= score}">★</div>
-			                                         <div class="number">{{ n }}</div>
-			                                     </div>
-			                                 </div>
-			                             </div>
-			                             <div class="btn-submit-wrapper">
-			                                <button @click="submitFeedback" class="btn-submit" :class="{'is-loading': isLoading}" :disabled="isLoading || score == 0">
-			                                             <div class="loader" v-if="isLoading"></div>
-			                                             <span v-else>Submit</span>
-			                                         </button>
-			                             </div>
-			                             <div class="error" v-if="isError">Failed to submit feedback</div>
-			                                      <div class="thankyou" v-if="isDone">
-			                                         <h1>Thank You</h1>
-			                                      </div>
-			                         </div>
-
-			             </div>
-			         </transition>
-		</script>
 	</head>
 	<body>
-		<div
+		<!-- <div
 			style="
 				position: absolute;
 				top: 0;
@@ -47,10 +19,43 @@
 				background-repeat: no-repeat;
 				z-index: -69420;
 			"
-		></div>
+		></div> -->
 		<div id="app">
 			<feedback-form></feedback-form>
 		</div>
+
+		<script type="text/x-template" id="feedback-form">
+
+
+			<transition name="feedback-form-wrapper" appear>
+			    <div class="feedback-form" v-if="!isClose">
+			       <div class="feedback-content">
+			                    <h2>How would you rate your satisfaction with our product?</h2>
+			                    <div class="stars">
+			                        <div class="star" v-for="n in 5" :key="n" @click="score = n">
+			                            <div class="star">
+			                                <div class="logo" :class="{'selected': n <= score}">★</div>
+			                                <div class="number">{{ n }}</div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                    <div class="btn-submit-wrapper">
+			                       <button @click="submitFeedback" class="btn-submit" :class="{'is-loading': isLoading}" :disabled="isLoading || score == 0">
+			                                    <div class="loader" v-if="isLoading"></div>
+			                                    <span v-else>Submit</span>
+			                                </button>
+			                    </div>
+			                    <div class="error" v-if="isError">Failed to submit feedback</div>
+			                             <transition name="thankyou">
+			                             <div class="thankyou" v-if="isDone">
+			                                <h1>Thank You</h1>
+			                             </div>
+			                             </transition>
+			                </div>
+
+			    </div>
+			</transition>
+		</script>
 		<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 		<script src="assets/app.js"></script>

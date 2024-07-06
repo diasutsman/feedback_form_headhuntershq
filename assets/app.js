@@ -4,7 +4,8 @@ Vue.component("feedback-form", {
 			score: 0,
 			isLoading: false,
 			isError: false,
-			isDone: false,
+            isDone: false,
+            isClose: false,
 		};
 	},
 	template: "#feedback-form",
@@ -15,7 +16,10 @@ Vue.component("feedback-form", {
 				await axios.post("http://localhost:8000/feedback/", {
 					score: this.score,
 				});
-				this.isDone = true;
+                this.isDone = true;
+                setTimeout(() => {
+                    this.isClose = true;
+                }, 500);
 				// alert("Feedback submitted successfully");
 			} catch (error) {
 				// alert("Failed to submit feedback");
