@@ -1,30 +1,32 @@
-Vue.component('feedback-form', {
-    data() {
-        return {
-            score: 0
-        };
-    },
-    template: `
-        <div>
-            <h2>How would you rate your satisfaction with our product?</h2>
-            <div v-for="n in 5" :key="n" @click="score = n">
-                <span :class="{'selected': n <= score}">★</span>
-            </div>
-            <button @click="submitFeedback">Submit</button>
-        </div>
-    `,
-    methods: {
-        async submitFeedback() {
-            try {
-                await axios.post('http://localhost:8000/feedback/', { score: this.score });
-                alert('Feedback submitted successfully');
-            } catch (error) {
-                alert('Failed to submit feedback');
-            }
-        }
-    }
+Vue.component("feedback-form", {
+	data() {
+		return {
+			score: 0,
+			isLoading: false,
+			isError: false,
+			isDone: false,
+		};
+	},
+	template: "#feedback-form",
+	methods: {
+		async submitFeedback() {
+			try {
+				this.isLoading = true;
+				await axios.post("http://localhost:8000/feedback/", {
+					score: this.score,
+				});
+				this.isDone = true;
+				// alert("Feedback submitted successfully");
+			} catch (error) {
+				// alert("Failed to submit feedback");
+				this.isError = true;
+			} finally {
+				this.isLoading = false;
+			}
+		},
+	},
 });
 
 new Vue({
-    el: '#app'
+	el: "#app",
 });
