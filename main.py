@@ -6,7 +6,6 @@ from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from starlette.responses import FileResponse 
-from db_utils import connect_create_if_not_exists
 from models import Feedback
 from schemas import FeedbackCreate
 
@@ -26,18 +25,7 @@ async def get_db():
     async with SessionLocal() as session:
         yield session
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Create the database tables if they don't exist
-    # if not await database_exist(engine.url): await create_database(engine.url)
-    await connect_create_if_not_exists(db_user, db_name, db_pass)
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
-    yield # this is written to ensure the lifespan function is called so that all code before this is run before app runs, 
-    # and all code after the `yield` will run after app finishes for releasing resources
-    
-app = FastAPI(lifespan=lifespan)
-
+app = FastAPI()
 
 app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 

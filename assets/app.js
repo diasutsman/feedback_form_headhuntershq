@@ -19,7 +19,7 @@ Vue.component("feedback-form", {
                 this.isDone = true;
                 setTimeout(() => {
                     this.isClose = true;
-                }, 500);
+                }, 3000);
 				// alert("Feedback submitted successfully");
 			} catch (error) {
 				// alert("Failed to submit feedback");
