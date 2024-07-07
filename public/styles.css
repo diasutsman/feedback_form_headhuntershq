@@ -7,6 +7,7 @@
 	margin: 0;
 	padding: 0;
 }
+
 body {
 	font-family: "Roboto", sans-serif;
 }
@@ -19,12 +20,11 @@ body {
 	color: gold;
 }
 
+/* Feedback form styling */
 .feedback-form {
 	position: fixed;
-
 	right: 32px;
 	bottom: 32px;
-
 	background-color: white;
 	padding: 16px;
 	border-radius: 16px;
@@ -34,9 +34,12 @@ body {
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+/* Feedback content wrapper */
 .feedback-form .feedback-content {
 	position: relative;
 }
+
+/* Thank you message styling */
 .feedback-form .feedback-content .thankyou {
 	background-color: white;
 	position: absolute;
@@ -53,6 +56,7 @@ body {
 	font-size: 64px;
 }
 
+/* Stars rating system styling */
 .feedback-form .stars {
 	cursor: pointer;
 	display: flex;
@@ -76,12 +80,14 @@ body {
 	font-size: 32px;
 }
 
+/* Submit button wrapper */
 .feedback-form .btn-submit-wrapper {
 	display: flex;
 	justify-content: end;
 	margin-top: 16px;
 }
 
+/* Submit button styling */
 .feedback-form .btn-submit-wrapper .btn-submit {
 	background-color: var(--primary-color);
 	color: white;
@@ -108,8 +114,7 @@ body {
 	pointer-events: none;
 }
 
-/* Loading Animation */
-
+/* Loading animation for submit button */
 .feedback-form .btn-submit-wrapper .btn-submit.is-loading .loader {
 	border: 8px solid #f3f3f3;
 	border-top: 8px solid var(--primary-color);
@@ -128,26 +133,15 @@ body {
 	}
 }
 
-/** Vue 2 Transitions */
-
-/* .feedback-form-enter-active {
-	transition: all 5s;
-}
-
-.feedback-form-leave-active {
-	transition: all 5s;
-}
-
-.feedback-form-enter, .feedback-form-leave-to{
-	transform: translateY(100%);
-} */
-
-.feedback-form-wrapper-enter-active {
-	transition: all 0.75s ease-out;
-}
-
+/* Vue 2 transition effects */
+.feedback-form-wrapper-enter-active,
 .feedback-form-wrapper-leave-active {
-	transition: all 0.75s ease-in;
+	transition: all 0.75s ease;
+}
+
+.feedback-form-wrapper-enter,
+.feedback-form-wrapper-leave-to {
+	bottom: -100%;
 }
 
 .thankyou-enter-active,
@@ -155,17 +149,11 @@ body {
 	transition: all 500ms ease-out;
 }
 
-.feedback-form-wrapper-enter, .feedback-form-wrapper-leave-to
-  /* .slide-fade-leave-active below version 2.1.8 */ {
-	/* transform: translateY(100%); */
-	/* opacity: 0; */
-	bottom: -100%;
-}
-
 .thankyou-enter,
 .thankyou-leave-to {
 	opacity: 0;
 }
+
 .thankyou-leave,
 .thankyou-enter-to {
 	opacity: 1;
