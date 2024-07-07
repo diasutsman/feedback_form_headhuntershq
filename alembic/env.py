@@ -1,11 +1,18 @@
 import asyncio
 from logging.config import fileConfig
+import os
+from dotenv import load_dotenv
+import os
 
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
+from sqlalchemy_utils import database_exists, create_database
+
 
 from alembic import context
+
+load_dotenv()
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -26,6 +33,30 @@ target_metadata = None
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+
+
+def _get_db_url(is_async=True) -> str:
+    db_user = os.getenv('DB_USER')
+    db_pass = os.getenv('DB_PASS')
+    db_ip = os.getenv('DB_IP')
+    db_name = os.getenv('DB_NAME')
+    if is_async:
+        url = "postgresql+asyncpg://{}:{}@{}/{}".format(
+            db_user, db_pass, db_ip, db_name)
+    else:
+        url = "postgresql://{}:{}@{}/{}".format(
+            db_user, db_pass, db_ip, db_name)
+    return url
+
+
+def _create_db_if_not_exists():
+    url = _get_db_url(False)
+    if not database_exists(url):
+        create_database(url)
+
+
+config.set_main_option('sqlalchemy.url', _get_db_url())
+_create_db_if_not_exists()
 
 
 def run_migrations_offline() -> None:

@@ -1,6 +1,3 @@
-import asyncio
-from contextlib import asynccontextmanager
-import asyncpg
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -10,10 +7,15 @@ from starlette.responses import FileResponse
 from models import Feedback
 from schemas import FeedbackCreate
 
-db_user = 'postgres'
-db_pass = '12345'
-db_ip = 'localhost:5432'
-db_name = 'test_db'
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+db_user = os.getenv('DB_USER')
+db_pass = os.getenv('DB_PASS')
+db_ip = os.getenv('DB_IP')
+db_name = os.getenv('DB_NAME')
 DATABASE_URL = "postgresql+asyncpg://{}:{}@{}/{}".format(
     db_user, db_pass, db_ip, db_name)
 
@@ -31,12 +33,12 @@ async def get_db():
 
 app = FastAPI()
 
-app.mount("/assets", StaticFiles(directory="assets"), name="assets")
+app.mount("/public", StaticFiles(directory="public"), name="public")
 
 
 @app.get("/")
 async def read_index():
-    return FileResponse('index.html')
+    return FileResponse('public/index.html')
 
 
 @app.post("/feedback/", response_model=FeedbackCreate)

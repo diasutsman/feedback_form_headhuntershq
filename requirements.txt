@@ -1,0 +1,9 @@
+pytest-cov
+fastapi 
+sqlalchemy
+sqlalchemy_utils
+pydantic 
+alembic 
+psycopg2
+asyncpg
+python-dotenv

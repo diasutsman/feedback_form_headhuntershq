@@ -21,7 +21,7 @@ Vue.component("feedback-form", {
 			this.resetState();
 			try {
 				this.isLoading = true;
-				await axios.post("http://localhost:8000/feedback/", {
+				await axios.post("/feedback", {
 					score: this.score,
 				});
 				this.isDone = true;
