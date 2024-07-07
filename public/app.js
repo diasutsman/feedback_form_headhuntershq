@@ -18,7 +18,6 @@ Vue.component("feedback-form", {
 			this.isClose = false;
 		},
 		async submitFeedback() {
-			this.resetState();
 			try {
 				this.isLoading = true;
 				await axios.post("/feedback", {
@@ -33,7 +32,8 @@ Vue.component("feedback-form", {
 				// alert("Failed to submit feedback");
 				this.isError = true;
 			} finally {
-				this.isLoading = false;
+				this.resetState();
+				this.isDone = true;
 			}
 		},
 	},

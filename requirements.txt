@@ -1,4 +1,6 @@
 pytest-cov
+pytest
+pytest-asyncio
 fastapi 
 sqlalchemy
 sqlalchemy_utils

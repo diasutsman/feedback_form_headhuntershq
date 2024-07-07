@@ -1,14 +1,14 @@
-from fastapi import FastAPI, HTTPException, Depends
-from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
-from starlette.responses import FileResponse
-from models import Feedback
-from schemas import FeedbackCreate
-
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
+from app.schemas import FeedbackCreate
+from app.models import Feedback
+from starlette.responses import FileResponse
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from pydantic import BaseModel
+from fastapi.staticfiles import StaticFiles
+from fastapi import FastAPI, HTTPException, Depends
+
 
 load_dotenv()
 
@@ -20,7 +20,6 @@ DATABASE_URL = "postgresql+asyncpg://{}:{}@{}/{}".format(
     db_user, db_pass, db_ip, db_name)
 
 
-Base = declarative_base()
 engine = create_async_engine(DATABASE_URL, echo=True)
 
 SessionLocal = sessionmaker(
