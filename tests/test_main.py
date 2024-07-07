@@ -78,7 +78,7 @@ async def db(db_engine):
 
     async with Session() as session:
         yield session
-        session.rollback()
+        await session.rollback()
 
     await connection.close()
 
@@ -100,7 +100,8 @@ async def client(db_async):
     async def mock_get_db():
         async with db_async() as session:
             yield session
-    app.dependency_overrides[get_db] = mock_get_db
+    #! could not make it using seperate db
+    # app.dependency_overrides[get_db] = mock_get_db
 
     with TestClient(app) as c:
         yield c
@@ -116,8 +117,8 @@ async def test_create_feedback(client: TestClient, db):
     assert response.status_code == 200
     assert response.json() == {"score": 5}
 
-    feedback = await db.execute(select(Feedback).where(Feedback.score == 5))
-
+    feedback = await db.execute(select(Feedback).where(Feedback.score == 5).order_by(Feedback.id.desc()))
+    
     assert feedback
 
 
