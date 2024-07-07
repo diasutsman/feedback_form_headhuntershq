@@ -40,7 +40,7 @@ async def read_index():
     return FileResponse('public/index.html')
 
 
-@app.post("/feedback/", response_model=FeedbackCreate)
+@app.post("/feedback", response_model=FeedbackCreate)
 async def create_feedback(feedback: FeedbackCreate, db: AsyncSession = Depends(get_db)):
     db_feedback = Feedback(score=feedback.score)
     db.add(db_feedback)

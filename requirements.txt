@@ -4,7 +4,7 @@ pytest-asyncio
 fastapi 
 sqlalchemy
 sqlalchemy_utils
-pydantic 
+pydantic==1.10
 alembic 
 psycopg2
 asyncpg
