@@ -11,7 +11,11 @@ body {
 	font-family: "Roboto", sans-serif;
 }
 
-.selected {
+.logo {
+	color: lightgrey;
+}
+
+.logo.selected {
 	color: gold;
 }
 

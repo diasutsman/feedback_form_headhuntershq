@@ -11,13 +11,13 @@ Vue.component("feedback-form", {
 	template: "#feedback-form",
 	methods: {
 		resetState() {
-			this.score = 0;
 			this.isLoading = false;
 			this.isError = false;
 			this.isDone = false;
 			this.isClose = false;
 		},
 		async submitFeedback() {
+			this.resetState();
 			try {
 				this.isLoading = true;
 				await axios.post("/feedback", {
@@ -26,14 +26,13 @@ Vue.component("feedback-form", {
 				this.isDone = true;
 				setTimeout(() => {
 					this.isClose = true;
-				}, 1500);
+				}, 500);
 				// alert("Feedback submitted successfully");
 			} catch (error) {
 				// alert("Failed to submit feedback");
 				this.isError = true;
 			} finally {
-				this.resetState();
-				this.isDone = true;
+				this.isLoading = false;
 			}
 		},
 	},
