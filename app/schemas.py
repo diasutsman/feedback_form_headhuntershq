@@ -2,11 +2,19 @@ from pydantic import BaseModel
 
 
 class FeedbackCreate(BaseModel):
-    # * Properties
-    score: int
+    """
+    Pydantic model for creating new feedback entries.
+
+    Attributes:
+    - score: int - The score provided by the user, ranging from 1 to 5
+    """
+
+    score: int  # The score given by the user, must be an integer
 
     class Config:
-        # The lineorm_mode = True allows the app to take ORM objects and translate
-        # them into responses automatically. This automation saves us from manually
-        # taking data out of ORM, making it into a dictionary, then loading it in with Pydantic.
+        """
+        Pydantic configuration class to enable ORM mode.
+
+        Enabling orm_mode allows the model to be used with SQLAlchemy ORM objects.
+        """
         orm_mode = True
