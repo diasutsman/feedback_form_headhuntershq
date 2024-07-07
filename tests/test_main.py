@@ -21,10 +21,10 @@ from app.models import Base, Feedback
 load_dotenv()
 
 # Database configuration
-db_user = os.getenv('DB_USER')
-db_pass = os.getenv('DB_PASS')
-db_ip = os.getenv('DB_IP')
-db_name = os.getenv('DB_NAME') + "_test"
+db_user = os.getenv("DB_USER")
+db_pass = os.getenv("DB_PASS")
+db_ip = os.getenv("DB_IP")
+db_name = os.getenv("DB_NAME") + "_test"
 DATABASE_URL = f"postgresql+asyncpg://{db_user}:{db_pass}@{db_ip}/{db_name}"
 
 
@@ -99,6 +99,7 @@ async def client(db_async):
 
     This mocks the database dependency to use the test database.
     """
+
     async def mock_get_db():
         async with db_async() as session:
             yield session
@@ -119,7 +120,9 @@ async def test_create_feedback(client: TestClient, db):
     assert response.status_code == 200
     assert response.json() == {"score": 5}
 
-    feedback = await db.execute(select(Feedback).where(Feedback.score == 5).order_by(Feedback.id.desc()))
+    feedback = await db.execute(
+        select(Feedback).where(Feedback.score == 5).order_by(Feedback.id.desc())
+    )
 
     assert feedback is not None
 

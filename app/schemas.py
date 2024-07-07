@@ -17,4 +17,5 @@ class FeedbackCreate(BaseModel):
 
         Enabling orm_mode allows the model to be used with SQLAlchemy ORM objects.
         """
+
         orm_mode = True

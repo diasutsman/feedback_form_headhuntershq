@@ -14,10 +14,10 @@ from app.models import Feedback
 load_dotenv()
 
 # Database configuration
-db_user = os.getenv('DB_USER')
-db_pass = os.getenv('DB_PASS')
-db_ip = os.getenv('DB_IP')
-db_name = os.getenv('DB_NAME')
+db_user = os.getenv("DB_USER")
+db_pass = os.getenv("DB_PASS")
+db_ip = os.getenv("DB_IP")
+db_name = os.getenv("DB_NAME")
 
 # Construct the database URL for asyncpg connection
 DATABASE_URL = f"postgresql+asyncpg://{db_user}:{db_pass}@{db_ip}/{db_name}"
@@ -37,6 +37,7 @@ async def get_db():
     async with SessionLocal() as session:
         yield session
 
+
 # Initialize the FastAPI app
 app = FastAPI()
 
@@ -48,7 +49,8 @@ app.mount("/public", StaticFiles(directory="public"), name="public")
 
 @app.get("/")
 async def read_index():
-    return FileResponse('public/index.html')
+    return FileResponse("public/index.html")
+
 
 # Define the feedback endpoint to create feedback entries
 
